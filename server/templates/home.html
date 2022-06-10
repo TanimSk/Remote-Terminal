@@ -1,7 +1,64 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+#alert{
+width: 10rem;
+margin: auto;
+visibility: hidden;
+}
+{% endblock style %}
+
 {% block title %}Home{% endblock title %}
 {% block content %}
 
-<h1>HI</h1>
+<h1 class="text-center pt-5 pb-5">
+    Open Remote Terminal and enter the UUID here
+</h1>
+
+<div class="border d-flex align-items-center justify-content-center" style="height: 15rem;">
+    <div class="form-outline border d-flex">
+        <i class="fa-solid fa-code trailing"></i>
+        <input onfocus="show_warning(false)" type="text" id="uuid" class="form-control form-icon-trailing" />
+        <label class="form-label" for="form1">Enter the UUID</label>
+    </div>
+    <button type="button" class="btn btn-primary ms-3" onclick="connect_server()">Go!</button>
+</div>
+
+<div id="alert" class="alert-danger p-1 text-center">
+    Wrong UUID!
+</div>
+
+{% csrf_token %}
+
+<script src="{% static 'submit_data.js' %}"></script>
+
+<script>
+    function show_warning(state) {
+        let element = document.getElementById('alert');
+        if (state) element.style.visibility = "visible";
+        else element.style.visibility = "hidden";
+    }
+
+    function connect_server() {
+        let uuid = document.getElementById('uuid').value;
+
+        if (!uuid.length) {
+            show_warning(true);
+            return false;
+        }
+
+        let data = {
+            uuid: uuid,
+        };
+
+        submit_data("{% url 'home' %}", data);
+    }
+
+
+        
+    
+</script>
+
 
 {% endblock %}
