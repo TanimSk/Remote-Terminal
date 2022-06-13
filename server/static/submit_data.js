@@ -13,13 +13,12 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function submit_data(endpoint, payload) {
+
+async function submit_data(endpoint, payload) {
 
     let csrftoken = getCookie('csrftoken');
 
-    console.log('provoked!');
-
-    fetch(endpoint, {
+    let response = await fetch(endpoint, {
         method: "POST",
         headers: {
             'Accept': 'application/json, text/plain',
@@ -29,4 +28,7 @@ function submit_data(endpoint, payload) {
         credentials: 'include',
         body: JSON.stringify(payload)
     });
+
+    return await response.text();
+
 }

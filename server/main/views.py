@@ -8,7 +8,7 @@ def home(req):
         data = json.loads(req.body)
         try:
             print(data['uuid'])
-            return HttpResponse('OK')
+            return render(req, 'terminal.html')
 
         except KeyError:
             return HttpResponse('ERROR')

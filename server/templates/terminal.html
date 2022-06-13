@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Terminal{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.18.0/css/xterm.css"
+    integrity="sha256-/q0WHuZjMF3mwHCyurmpf/Va4WrZgUglY9vTKU6fYe8=" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/xterm@4.18.0/lib/xterm.min.js"></script>
+{% endblock %}
+
+{% block style %}
+#terminal{
+margin: auto;
+}
+{% endblock %}
+
+{% block content %}
+
+<div id="terminal"></div>
+<script>
+    var term = new Terminal();
+    term.open(document.getElementById('terminal'));
+    term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ');
+    term.on('key', (key, ev) => {
+        console.log(key.charCodeAt(0));
+        if (key.charCodeAt(0) == 13)
+            term.write('\n');
+        term.write(key);
+    });
+</script>
+
+{% endblock %}
