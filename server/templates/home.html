@@ -52,8 +52,10 @@ visibility: hidden;
             uuid: uuid,
         };
 
+        // change page
         submit_data("{% url 'home' %}", data).then(
             response => {
+                localStorage.setItem('user-uuid', uuid);
                 document.open();
                 document.write(response);
                 document.close();
