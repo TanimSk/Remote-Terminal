@@ -32,11 +32,8 @@
         `ws://${window.location.host}/ws/${uuid}/`
     );
 
-    ws.onmessage = (event) => {
-        console.log(event.data);
-    }
 
-    $('#terminal').terminal(
+    let term = $('#terminal').terminal(
         (cmd, obj) => {
 
             ws.send(cmd);
@@ -56,7 +53,9 @@
             greetings: '[[;lime;]' + greetings.innerHTML + ']\n\n',
         });
 
-
+    ws.onmessage = (event) => {
+        term.echo(event.data);
+    }
 
 
 </script>

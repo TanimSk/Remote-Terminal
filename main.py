@@ -43,7 +43,7 @@ async def hello():
             print(cmd)
             cmd_out = exe_cmd(cmd)
             print(cmd_out)
-            await websocket.send(cmd_out)
+            await websocket.send(f'[[;lime;]{cmd_out}]')
 
 
 if __name__ == "__main__":

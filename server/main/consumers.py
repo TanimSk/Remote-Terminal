@@ -4,7 +4,6 @@ from channels.consumer import AsyncConsumer
 
 class NewConsumer(AsyncConsumer):
 
-
     async def websocket_connect(self, event):
         group_name = self.scope['url_route']['kwargs']['uuid']
 
@@ -22,17 +21,19 @@ class NewConsumer(AsyncConsumer):
             self.scope['url_route']['kwargs']['uuid'],
             {
                 'type': 'cmd.message',
+                'channel_name': self.channel_name,
                 'cmd': event['text']
             }
         )
 
 
     async def cmd_message(self, event):
-        print(event)
-        await self.send({
-            'type': 'websocket.send',
-            'text': event['cmd']
-        })
+        # Sent data to everyone except data sender
+        if not self.channel_name == event['channel_name']:
+            await self.send({
+                'type': 'websocket.send',
+                'text': event['cmd']
+            })
 
 
     async def websocket_disconnect(self, event):
