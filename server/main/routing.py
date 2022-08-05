@@ -2,5 +2,5 @@ from django.urls import path
 from . import consumers
 
 ws_urlpatterns = [
-    path('ws/socket-server/', consumers.NewConsumer.as_asgi()),
+    path('ws/<str:uuid>/', consumers.NewConsumer.as_asgi()),
 ]
