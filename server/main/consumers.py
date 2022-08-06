@@ -15,7 +15,7 @@ class NewConsumer(AsyncConsumer):
 
 
     async def websocket_receive(self, event):
-        print(event['text'], self.scope['url_route']['kwargs']['uuid'])
+        # print(event['text'], self.scope['url_route']['kwargs']['uuid'])
 
         await self.channel_layer.group_send(
             self.scope['url_route']['kwargs']['uuid'],

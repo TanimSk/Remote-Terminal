@@ -18,14 +18,5 @@ def home(req):
     return render(req, 'home.html')
 
 
-def handle_cmd(req):
-    if req.method == 'POST':
-        data = json.loads(req.body)
-        try:
-            print(data['cmd'])
-            return HttpResponse(data['cmd'] + ' [[;lime;]from server]')
-
-        except KeyError:
-            return HttpResponse('ERROR')
-    
-    return HttpResponse('ERROR')
+def documentation(req):
+    return render(req, 'doc.html')

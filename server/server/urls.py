@@ -4,6 +4,6 @@ from main import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('handle_cmd', views.handle_cmd, name='handle_cmd'),
+    path('documentation', views.documentation, name='doc'),
     path('admin/', admin.site.urls),
 ]
