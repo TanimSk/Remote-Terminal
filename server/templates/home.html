@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style %}
-#alert{
+#alert, #_alert {
 width: 10rem;
 margin: auto;
 visibility: hidden;
@@ -25,8 +25,12 @@ visibility: hidden;
     <button type="button" class="btn btn-primary ms-3" onclick="connect_server()">Go!</button>
 </div>
 
-<div id="alert" class="alert-danger p-1 text-center">
+<div id="alert" class="alert-danger p-1 text-center" role="alert">
     Wrong UUID!
+</div>
+
+<div id="_alert" class="alert alert-success text-center" role="alert">
+    Please Wait ...
 </div>
 
 {% csrf_token %}
@@ -40,10 +44,16 @@ visibility: hidden;
         else element.style.visibility = "hidden";
     }
 
+    function show_success(state) {
+        let element = document.getElementById('_alert');
+        if (state) element.style.visibility = "visible";
+        else element.style.visibility = "hidden";
+    }
+
     function connect_server() {
         let uuid = document.getElementById('uuid').value;
 
-        if (!uuid.length) {
+        if (uuid.length !== 36) {
             show_warning(true);
             return false;
         }
@@ -51,6 +61,9 @@ visibility: hidden;
         let data = {
             uuid: uuid,
         };
+
+        show_warning(false);
+        show_success(true);
 
         // change page
         submit_data("{% url 'home' %}", data).then(
@@ -65,8 +78,8 @@ visibility: hidden;
     }
 
 
-        
-    
+
+
 </script>
 
 
