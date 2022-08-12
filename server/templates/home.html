@@ -2,10 +2,14 @@
 {% load static %}
 
 {% block style %}
-#alert, #_alert {
+.notify {
 width: 10rem;
 margin: auto;
-visibility: hidden;
+display: none;
+}
+.save-btn{
+margin-right: 1rem;
+font-size: 1.8rem;
 }
 {% endblock style %}
 
@@ -17,7 +21,7 @@ visibility: hidden;
 </h1>
 
 <div class="border d-flex align-items-center justify-content-center" style="height: 15rem;">
-    <a href="#" role="button">
+    <a href="#" class="save-btn" role="button" onclick="save_uuid()" title="save uuid">
         <i class="fa-solid fa-floppy-disk"></i>
     </a>
     <div class="form-outline border d-flex">
@@ -28,12 +32,16 @@ visibility: hidden;
     <button type="button" class="btn btn-primary ms-3" onclick="connect_server()">Go!</button>
 </div>
 
-<div id="alert" class="alert-danger p-1 text-center" role="alert">
+<div id="alert" class="alert alert-danger text-center notify mt-5" role="alert">
     Wrong UUID!
 </div>
 
-<div id="_alert" class="alert alert-success text-center" role="alert">
+<div id="wait" class="alert alert-success text-center notify mt-5" role="alert">
     Please Wait ...
+</div>
+
+<div id="saved" class="alert alert-success text-center notify mt-5" role="alert">
+    Saved!
 </div>
 
 {% csrf_token %}
@@ -41,17 +49,44 @@ visibility: hidden;
 <script src="{% static 'submit_data.js' %}"></script>
 
 <script>
+
+    document.addEventListener('load', () => {
+        let inputField = document.getElementById('uuid');
+        inputField.value = localStorage.getItem('saved-uuid');
+    })
+
     function show_warning(state) {
+        show_saved(false);
         let element = document.getElementById('alert');
-        if (state) element.style.visibility = "visible";
-        else element.style.visibility = "hidden";
+        if (state) element.style.display = "block";
+        else element.style.display = "none";
     }
 
     function show_success(state) {
-        let element = document.getElementById('_alert');
-        if (state) element.style.visibility = "visible";
-        else element.style.visibility = "hidden";
+        let element = document.getElementById('wait');
+        if (state) element.style.display = "block";
+        else element.style.display = "none";
     }
+
+    function show_saved(state) {
+        let element = document.getElementById('saved');
+        if (state) element.style.display = "block";
+        else element.style.display = "none";
+    }
+
+    function save_uuid() {
+        let uuid = document.getElementById('uuid').value;
+
+        if (uuid.length !== 36) {
+            show_warning(true);
+            return false;
+        }
+
+        localStorage.setItem('saved-uuid', uuid);
+
+        show_saved(true);
+    }
+
 
     function connect_server() {
         let uuid = document.getElementById('uuid').value;
