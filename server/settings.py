@@ -14,9 +14,9 @@ SECRET_KEY = 'django-insecure-$no_afe!@m^m4wx*4x*x3f*c+f+4qvk!2*xmwelk!5hn#7_hft
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['remo-terminal.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['remoterminal.herokuapp.com', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://remo-terminal.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['https://remoterminal.herokuapp.com']
 
 # Application definition
 
