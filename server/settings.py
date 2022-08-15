@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['remo-terminal.herokuapp.com', '127.0.0.1']
 
+CSRF_TRUSTED_ORIGINS = ['remo-terminal.herokuapp.com']
 
 # Application definition
 
