@@ -38,7 +38,7 @@
 
     var uuid = localStorage.getItem('user-uuid');
     var ws = new WebSocket(
-        `ws://${window.location.host}/ws/${uuid}/`
+        `${(window.location.protocol === 'https:' ? 'wss' : 'ws')}://${window.location.host}/ws/${uuid}/`
     );
 
 
