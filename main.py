@@ -156,7 +156,7 @@ class RemoteTerminal:
 async def run_terminal():
     term = RemoteTerminal()
     my_uuid = term.generate_uuid()
-    URL = f"wss://remo-terminal.herokuapp.com/ws/{my_uuid}/"
+    URL = f"wss://remoterminal.herokuapp.com/ws/{my_uuid}/"
 
     async with websockets.connect(URL) as websocket:
         await websocket.send('Connected !')
