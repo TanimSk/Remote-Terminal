@@ -80,6 +80,7 @@ class RemoteTerminal:
             'content': img64.decode('utf-8')
         }
 
+
     # --- Executing keystrokes ---
     '''
         # for hotkey example: #enter, #shift
