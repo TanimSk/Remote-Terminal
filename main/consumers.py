@@ -1,6 +1,4 @@
-from channels.exceptions import StopConsumer
 from channels.consumer import AsyncConsumer
-
 
 class NewConsumer(AsyncConsumer):
 
@@ -15,7 +13,7 @@ class NewConsumer(AsyncConsumer):
 
 
     async def websocket_receive(self, event):
-        # print(event['text'], self.scope['url_route']['kwargs']['uuid'])
+        print(event['text'], self.scope['url_route']['kwargs']['uuid'])
 
         await self.channel_layer.group_send(
             self.scope['url_route']['kwargs']['uuid'],
@@ -39,7 +37,6 @@ class NewConsumer(AsyncConsumer):
     async def websocket_disconnect(self, event):
         await self.channel_layer.group_discard(
             self.scope['url_route']['kwargs']['uuid'], self.channel_name)
-        raise stopConsumer()
 
 
 # NOTES:
