@@ -43,10 +43,10 @@ CHANNEL_LAYERS = {
         'BACKEND': 'channels_postgres.core.PostgresChannelLayer',
         'CONFIG': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'd311j769trqeb4',
-            'USER': 'phpemkzvsbngdg',
-            'PASSWORD': '9ed974ee1dbdb4272e7a2475d89bc77433b63249ffd333bcde98343f0097d6eb',
-            'HOST': 'ec2-44-205-64-253.compute-1.amazonaws.com',
+            'NAME': 'd5ganrdv4esed1',
+            'USER': 'zaynrzvonniwwj',
+            'PASSWORD': 'e00e2444e940c81dd94b20952a1b429574b1b7b5d40509a52f38c554cc92bfe5',
+            'HOST': 'ec2-34-234-240-121.compute-1.amazonaws.com',
             'PORT': '5432',
         },
     },
@@ -93,10 +93,10 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd311j769trqeb4',
-        'USER': 'phpemkzvsbngdg',
-        'PASSWORD': '9ed974ee1dbdb4272e7a2475d89bc77433b63249ffd333bcde98343f0097d6eb',
-        'HOST': 'ec2-44-205-64-253.compute-1.amazonaws.com',
+        'NAME': 'd5ganrdv4esed1',
+        'USER': 'zaynrzvonniwwj',
+        'PASSWORD': 'e00e2444e940c81dd94b20952a1b429574b1b7b5d40509a52f38c554cc92bfe5',
+        'HOST': 'ec2-34-234-240-121.compute-1.amazonaws.com',
         'PORT': '5432',
     },
 }
