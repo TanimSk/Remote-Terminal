@@ -167,6 +167,7 @@ async def run_terminal():
             print(cmd)
             cmd_out = await term.exe_cmd(cmd)
             print(cmd_out)
+            await asyncio.sleep(1)
             await websocket.send(json.dumps(cmd_out))
 
 
