@@ -20,13 +20,13 @@ font-size: 1.8rem;
     Open Remote Terminal and enter the UUID here
 </h1>
 
-<div class="border d-flex align-items-center justify-content-center" style="height: 15rem;">
+<div class="border d-flex align-items-center justify-content-center px-2" style="height: 15rem;">
     <a href="#" class="save-btn" role="button" onclick="save_uuid()" title="save uuid">
         <i class="fa-solid fa-floppy-disk"></i>
     </a>
     <div class="form-outline border d-flex">
         <i class="fa-solid fa-code trailing"></i>
-        <input onfocus="show_warning(false)" type="text" id="uuid" class="form-control form-icon-trailing" />
+        <input onfocus="show_warning(false); this.select();" onmouseup="return false;" type="text" id="uuid" class="form-control form-icon-trailing" />
         <label class="form-label" for="form1">Enter the UUID</label>
     </div>
     <button type="button" class="btn btn-primary ms-3" onclick="connect_server()">Go!</button>
@@ -50,10 +50,11 @@ font-size: 1.8rem;
 
 <script>
 
-    document.addEventListener('load', () => {
-        let inputField = document.getElementById('uuid');
-        inputField.value = localStorage.getItem('saved-uuid');
-    })
+    let inputField = document.getElementById('uuid');
+    inputField.value = getCookie('saved_uuid');
+    console.log(10);
+    console.log(getCookie('saved_uuid'));
+
 
     function show_warning(state) {
         show_saved(false);
@@ -82,7 +83,7 @@ font-size: 1.8rem;
             return false;
         }
 
-        localStorage.setItem('saved-uuid', uuid);
+        setCookie("saved_uuid", uuid, 30);
 
         show_saved(true);
     }
@@ -115,8 +116,27 @@ font-size: 1.8rem;
 
     }
 
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires + "; SameSite=None; Secure; path=/";
+    }
 
-
+    function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
 
 </script>
 
