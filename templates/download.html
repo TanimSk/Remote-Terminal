@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Download{% endblock title %}
+{% block content %}
+
+<h1 class="text-center pt-5 pb-5 ps-1 pe-1">
+    Download Remote Terminal Client
+</h1>
+
+
+
+<div class="border pe-1 ps-1 pb-5 pt-5">
+
+    <div class="row align-items-center justify-content-center text-center">
+        <div class="col-6 col-sm-3">
+            <h4>Download for Windows</h4>
+        </div>
+        <div class="col-6 col-sm-3"><a
+                href="https://raw.githubusercontent.com/TanimSk/Remote-Terminal/client/bin/main.exe">
+                <button type="button" class="btn btn-primary ms-3">
+                    <i class="fa-brands fa-windows me-2"></i>Download
+                </button>
+            </a>
+        </div>
+
+        <div class="w-100 pt-3"></div>
+
+        <div class="col-6 col-sm-3">
+            <h4>Download for Linux</h4>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="#">
+                <button type="button" class="btn btn-primary ms-3">
+                    <i class="fa-brands fa-linux me-2"></i>Download
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

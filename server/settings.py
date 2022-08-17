@@ -5,14 +5,17 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-$no_afe!@m^m4wx*4x*x3f*c+f+4qvk!2*xmwelk!5hn#7_hft'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+# env variables
+POSTGRES_DB_NAME = os.environ.get('POSTGRES_DB_NAME')
+POSTGRES_DB_USER = os.environ.get('POSTGRES_DB_USER')
+POSTGRES_DB_PASS = os.environ.get('POSTGRES_DB_PASS')
+POSTGRES_DB_HOST = os.environ.get('POSTGRES_DB_HOST')
 
 ALLOWED_HOSTS = ['remoterminal.herokuapp.com', '127.0.0.1']
 
@@ -43,10 +46,10 @@ CHANNEL_LAYERS = {
         'BACKEND': 'channels_postgres.core.PostgresChannelLayer',
         'CONFIG': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'd5ganrdv4esed1',
-            'USER': 'zaynrzvonniwwj',
-            'PASSWORD': 'e00e2444e940c81dd94b20952a1b429574b1b7b5d40509a52f38c554cc92bfe5',
-            'HOST': 'ec2-34-234-240-121.compute-1.amazonaws.com',
+            'NAME': POSTGRES_DB_NAME,
+            'USER': POSTGRES_DB_USER,
+            'PASSWORD': POSTGRES_DB_PASS,
+            'HOST': POSTGRES_DB_HOST,
             'PORT': '5432',
         },
     },
@@ -93,10 +96,10 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd5ganrdv4esed1',
-        'USER': 'zaynrzvonniwwj',
-        'PASSWORD': 'e00e2444e940c81dd94b20952a1b429574b1b7b5d40509a52f38c554cc92bfe5',
-        'HOST': 'ec2-34-234-240-121.compute-1.amazonaws.com',
+        'NAME': POSTGRES_DB_NAME,
+        'USER': POSTGRES_DB_USER,
+        'PASSWORD': POSTGRES_DB_PASS,
+        'HOST': POSTGRES_DB_HOST,
         'PORT': '5432',
     },
 }

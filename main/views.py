@@ -6,8 +6,8 @@ import json
 def home(req):
     if req.method == 'POST':
         data = json.loads(req.body)
+
         try:
-            # print(data['uuid'])
             return render(req, 'terminal.html')
 
         except KeyError:
@@ -18,12 +18,12 @@ def home(req):
     return render(req, 'home.html')
 
 
-def upload_file(req):
-    if req.method == 'POST':
-        pass
-    else:
-        return HttpResponse(False)
-
 
 def documentation(req):
     return render(req, 'doc.html')
+
+def download(req):
+    return render(req, 'download.html')
+
+def about(req):
+    return render(req, 'about.html')
