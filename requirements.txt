@@ -1,0 +1,5 @@
+requests==2.28.1
+websockets==10.3
+PyAutoGUI==0.9.53
+opencv-python==4.5.3.56
+
