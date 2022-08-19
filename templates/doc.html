@@ -1,5 +1,12 @@
  {% extends "base.html" %}
 {% load static %}
+
+{% block style %}
+#contentBody{
+    padding: 1rem;
+}
+{% endblock style %}
+
 {% block title %}Home{% endblock title %}
 
 {% block head %}
@@ -16,7 +23,7 @@
 <script>
     var md = window.markdownit();
 
-    fetch('https://raw.githubusercontent.com/TanimSk/Remote-Terminal/client/README.md')
+    fetch('https://raw.githubusercontent.com/TanimSk/Remote-Terminal/client/Documentation/documentation.md')
         .then((response) => response.text())
         .then((content) => {
             let result = md.render(content);
