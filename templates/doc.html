@@ -1,7 +1,30 @@
  {% extends "base.html" %}
 {% load static %}
 {% block title %}Home{% endblock title %}
+
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"
+    integrity="sha256-hNyljag6giCsjv/yKmxK8/VeHzvMDvc5u8AzmRvm1BI=" crossorigin="anonymous"></script>
+{% endblock %}
+
 {% block content %}
 
+<div id="contentBody">
+    <!-- content -->
+</div>
+
+<script>
+    var md = window.markdownit();
+
+    fetch('https://raw.githubusercontent.com/TanimSk/Remote-Terminal/client/README.md')
+        .then((response) => response.text())
+        .then((content) => {
+            let result = md.render(content);
+            document.getElementById('contentBody').innerHTML = result;
+        })
+
+
+
+</script>
 
 {% endblock %}
