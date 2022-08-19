@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/TanimSk/Remote-Terminal">
-    <img src="img/terminal.png" alt="Logo" width="80" height="80">
+    <img src="Documentation/terminal.png" alt="Logo" width="80" height="80">
   </a>
   <h3 align="center">RemoTerminal</h3>
   <p align="center">
