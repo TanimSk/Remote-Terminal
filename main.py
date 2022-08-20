@@ -178,6 +178,10 @@ async def run_terminal():
         await websocket.send('Connected !')
         term.ws = websocket
         print('Connected !')
+        await websocket.send(json.dumps({
+            'type': 'text',
+            'content': 'Connected!'
+        }))
 
         while True:
             cmd = await websocket.recv()
