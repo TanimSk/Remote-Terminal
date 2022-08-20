@@ -11,6 +11,8 @@ import asyncio
 import uuid
 import os
 import cv2
+import datetime
+
 
 
 class RemoteTerminal:
@@ -113,25 +115,31 @@ class RemoteTerminal:
     async def getFile(self, cmds) -> dict:
         filename = cmds[1]
 
-        params = {
-            'output': 'text',
+        headers = {
+            'accept': 'application/json',
         }
 
+        #'2022-08-22T00:30:10.898713'
         files = {
-            'files[]': open(filename, 'rb'),
+            'file': open(filename, 'rb'),
+            'expires': (None, str((datetime.date.today() + datetime.timedelta(days=1)).isoformat())),
+            'maxDownloads': (None, '1'),
+            'autoDelete': (None, 'true'),
         }
 
+        
         await self.ws.send(json.dumps({
             'type': 'wait',
             'content': 'Uploading File ...'
         }))
 
-        response = requests.post('https://tmp.ninja/upload.php', params=params, files=files)
+        response = requests.post('https://file.io/', headers=headers, files=files)
 
         return {
             'type': 'text',
-            'content': 'File URL: ' + response.text
+            'content': 'File URL: ' + json.loads(response.text)['link']
         }
+        
 
     
     # --- Terminate and shutting down ---
