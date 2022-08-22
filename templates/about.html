@@ -1,50 +1,101 @@
 {% extends "base.html" %}
 {% load static %}
 {% block style %}
+#bodyCont{
+width: 52rem;
+margin: auto;
+}
+
 .myImg{
 width: 10rem;
+border-radius: 10rem;
 }
+
+.myLogo{
+width: 8rem;
+}
+
 .my-description{
-margin: .5rem 0rem .5rem 2rem;
+margin: 1.2rem 0rem .5rem 2rem;
 color: gray;
 max-width: 40rem;
 }
+.myHeader{
+color: black;
+}
+
+
 {% endblock style %}
 
 {% block title %}About{% endblock title %}
 {% block content %}
 
-<h2 class="text-center pt-5 pb-5 ps-1 pe-1">
-    Just a fun Project 🙂
-</h2>
+<div id="bodyCont">
+    <div class="container pt-5 pb-5 ps-1 pe-1">
+        <div class="row">
 
-<div class="d-flex justify-content-center">
-    <div class="bg-image hover-overlay ripple rounded-circle">
-        <img src="{% static 'logo.png' %}" class="img-fluid rounded-circle myImg" />
-        <a href="https://github.com/TanimSk/Remote-Terminal">
-            <div class="mask" style="background-color: rgba(0, 0, 0, 0.075);"></div>
-        </a>
+            <div class="col-md-4">
+                <div style="width: 8.5rem; margin: auto;">
+                    <div class="bg-image hover-overlay ripple myLogo">
+                        <img src="{% static 'logo.png' %}" class="img-fluid myLogo" />
+                        <a href="https://github.com/TanimSk/Remote-Terminal">
+                            <div class="mask" style="background-color: rgba(0, 0, 0, 0.075);"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="my-description">
+                    <h2 class="myHeader">Remote Terminal</h2>
+                    <small>
+                        Web based terminal for taking control on a computer over the internet. <br>
+                        Techonologies used: Django, channels, websockets, opencv, pyautogui
+                    </small>
+                </div>
+            </div>
+
+        </div>
     </div>
-    
+
+    <div class="container pt-5 pb-5 ps-1 pe-1">
+
+        <div class="row">
+            <div class="col-md-4">
+                <div style="width: 10.5rem; margin: auto;">
+                    <div class="bg-image hover-overlay ripple myImg">
+                        <img src="{% static 'me.png' %}" class="img-fluid myImg" />
+                        <a href="https://github.com/TanimSk/">
+                            <div class="mask" style="background-color: rgba(0, 0, 0, 0.075);"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="my-description">
+                    <small>
+                        This piece of software is free for use as long as you don't mess up. Follow me on <a
+                            href="https://github.com/TanimSk/">Github</a>
+                        to stay on touch. If you somehow like this <a
+                            href="https://github.com/TanimSk/Remote-Terminal">project</a>,
+                        give it a star ⭐. <br>
+                        This Project is hosted on <a href="https://heroku.com/">Heroku.</a><br>
+                        Used <a href="https://github.com/markdown-it/markdown-it">markdown-it</a> and <a
+                            href="https://github.com/sindresorhus/github-markdown-css">github-markdown-css</a> to
+                        convert
+                        github
+                        markdown to html.
+                        <br>
+                        Feel free to connect: <a href="mailto:sktanim5800@gmail.com">Email</a> | <a
+                            href="https://www.linkedin.com/in/tanim-sk-04b9931b3">LinkedIn</a> | <a
+                            href="https://t.me/not_open_source">Telegram</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="d-flex justify-content-center">
-    <div class="bg-image hover-overlay ripple rounded-circle">
-        <img src="{% static 'me.png' %}" class="img-fluid rounded-circle myImg" />
-        <a href="https://github.com/TanimSk/">
-            <div class="mask" style="background-color: rgba(0, 0, 0, 0.075);"></div>
-        </a>
-    </div>
-    <div class="my-description">
-        This piece of software is free for use as long as you don't mess up. Follow me on <a
-            href="https://github.com/TanimSk/">Github</a>
-        to stay on touch. If you somehow like this <a href="https://github.com/TanimSk/Remote-Terminal">project</a>, give it a star ⭐. <br>
-        This Project is hosted on <a href="https://heroku.com/">Heroku.</a><br>
-        Used <a href="https://github.com/markdown-it/markdown-it">markdown-it</a> and <a
-            href="https://github.com/sindresorhus/github-markdown-css">github-markdown-css</a> to convert github markdown to html.
-        <br>
-        Feel free to connect: <a href="mailto:sktanim5800@gmail.com">Email</a> | <a href="https://www.linkedin.com/in/tanim-sk-04b9931b3">LinkedIn</a> | <a href="https://t.me/not_open_source">Telegram</a>
-    </div>
-</div>
+
 
 {% endblock %}
