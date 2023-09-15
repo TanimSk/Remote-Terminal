@@ -6,101 +6,104 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$no_afe!@m^m4wx*4x*x3f*c+f+4qvk!2*xmwelk!5hn#7_hft'
+SECRET_KEY = "django-insecure-$no_afe!@m^m4wx*4x*x3f*c+f+4qvk!2*xmwelk!5hn#7_hft"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # env variables
-POSTGRES_DB_NAME = os.environ.get('POSTGRES_DB_NAME')
-POSTGRES_DB_USER = os.environ.get('POSTGRES_DB_USER')
-POSTGRES_DB_PASS = os.environ.get('POSTGRES_DB_PASS')
-POSTGRES_DB_HOST = os.environ.get('POSTGRES_DB_HOST')
+if not DEBUG:
+    POSTGRES_DB_NAME = os.environ.get("POSTGRES_DB_NAME")
+    POSTGRES_DB_USER = os.environ.get("POSTGRES_DB_USER")
+    POSTGRES_DB_PASS = os.environ.get("POSTGRES_DB_PASS")
+    POSTGRES_DB_HOST = os.environ.get("POSTGRES_DB_HOST")
+    POSTGRES_DB_PORT = "5432"
+else:
+    POSTGRES_DB_NAME = "remote_terminal"
+    POSTGRES_DB_USER = "tanimsk"
+    POSTGRES_DB_PASS = "123"
+    POSTGRES_DB_HOST = "localhost"
+    POSTGRES_DB_PORT = ""
 
-ALLOWED_HOSTS = ['remoterminal.herokuapp.com', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://remoterminal.herokuapp.com']
+ALLOWED_HOSTS = ["remoterminal.herokuapp.com", "127.0.0.1"]
+
+CSRF_TRUSTED_ORIGINS = ["https://remoterminal.herokuapp.com"]
 
 # Application definition
 
 INSTALLED_APPS = [
-    'channels',                         # ADDED
-    'channels_postgres',
-    'whitenoise.runserver_nostatic',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'main.apps.MainConfig',
+    "daphne",
+    "whitenoise.runserver_nostatic",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "main.apps.MainConfig",
 ]
 
 
 # ADDED   "project_name.asgi.application"
-ASGI_APPLICATION = 'server.asgi.application'
+ASGI_APPLICATION = "server.asgi.application"
 
 # ADDED
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_postgres.core.PostgresChannelLayer',
-        'CONFIG': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': POSTGRES_DB_NAME,
-            'USER': POSTGRES_DB_USER,
-            'PASSWORD': POSTGRES_DB_PASS,
-            'HOST': POSTGRES_DB_HOST,
-            'PORT': '5432',
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
         },
     },
 }
 
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-ROOT_URLCONF = 'server.urls'
+ROOT_URLCONF = "server.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'server.wsgi.application'
+WSGI_APPLICATION = "server.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': POSTGRES_DB_NAME,
-        'USER': POSTGRES_DB_USER,
-        'PASSWORD': POSTGRES_DB_PASS,
-        'HOST': POSTGRES_DB_HOST,
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": POSTGRES_DB_NAME,
+        "USER": POSTGRES_DB_USER,
+        "PASSWORD": POSTGRES_DB_PASS,
+        "HOST": POSTGRES_DB_HOST,
+        "PORT": POSTGRES_DB_PORT,
     },
 }
 
@@ -110,16 +113,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -127,24 +130,24 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
 USE_TZ = True
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, "static"),
 ]
 
 
