@@ -31,7 +31,7 @@ margin: auto;
     md.options.typographer = true;
     md.options.linkify = true;
 
-    fetch('https://raw.githubusercontent.com/TanimSk/Remote-Terminal/client/Documentation/documentation.md')
+    fetch('https://raw.githubusercontent.com/TanimSk/Remote-Terminal/server/Documentation/documentation.md')
         .then((response) => response.text())
         .then((content) => {
             let result = md.render(content);
