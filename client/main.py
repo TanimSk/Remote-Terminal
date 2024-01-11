@@ -172,7 +172,8 @@ class RemoteTerminal:
 async def run_terminal():
     term = RemoteTerminal()
     my_uuid = term.generate_uuid()
-    URL = f"ws://localhost:8000/ws/{my_uuid}/" 
+
+    URL = f"ws://{input('Enter Server Address: ')}/ws/{my_uuid}/" 
 
     async with websockets.connect(URL) as websocket:
         await websocket.send('Connected !')

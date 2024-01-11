@@ -1,2 +1,4 @@
-venv/
-bin/
+/venv
+/client/dist
+/client/build
+/client/winenv

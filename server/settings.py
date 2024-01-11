@@ -26,9 +26,9 @@ else:
     POSTGRES_DB_PORT = ""
 
 
-ALLOWED_HOSTS = ["remoterminal.herokuapp.com", "127.0.0.1"]
-
-CSRF_TRUSTED_ORIGINS = ["https://remoterminal.herokuapp.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
+CORS_ALLOW_ALL_ORIGINS = True
+# CSRF_TRUSTED_ORIGINS = ["*"]
 
 # Application definition
 
