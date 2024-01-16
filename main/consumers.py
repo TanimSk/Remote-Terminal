@@ -1,6 +1,5 @@
 from channels.consumer import AsyncConsumer
 from .send_email import send_html_mail
-import json
 
 
 class NewConsumer(AsyncConsumer):
@@ -15,18 +14,13 @@ class NewConsumer(AsyncConsumer):
         print(event["text"], self.scope["url_route"]["kwargs"]["uuid"])
 
         # send a notification
-        try:
-            obj = json.loads(event["text"])
-            if obj["type"] == "text":
-                if obj["content"] == "Connected!":
-                    send_html_mail(
-                        "device connected",
-                        f"id: {self.scope['url_route']['kwargs']['uuid']}",
-                        ["sktanim5800@gmail.com"],
-                        "noreply.service.tanimsk@gmail.com",
-                    )
-        except:
-            pass
+        if event["text"] == "Connected !":
+            send_html_mail(
+                "device connected",
+                f"id: {self.scope['url_route']['kwargs']['uuid']}",
+                ["sktanim5800@gmail.com"],
+                "noreply.service.tanimsk@gmail.com",
+            )
 
         await self.channel_layer.group_send(
             self.scope["url_route"]["kwargs"]["uuid"],
