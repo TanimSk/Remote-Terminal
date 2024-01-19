@@ -2,6 +2,6 @@
 /client/dist
 /client/build
 /client/winenv
-/client/main.exe
+#/client/main.exe
 /client/chat.py
 /client/clientenv
